@@ -1,25 +1,23 @@
-import React, {useEffect} from 'react';
-import {Text, StatusBar, SafeAreaView} from 'react-native';
-import styled from 'styled-components';
+import React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import Axios from 'axios';
+import {HomeScreen} from './screens/home.screen';
+import {CenterScreen} from './screens/center.screen';
+
+const Stack = createStackNavigator();
+
+Axios.defaults.baseURL = 'https://serguide.maccabi4u.co.il/webapi/api';
 
 const App = () => {
-  useEffect(() => {
-    setTimeout(() => alert('חיסוNET!!!'), 10000);
-  }, []);
-
   return (
-    <SafeAreaView>
-      <StatusBar translucent backgroundColor="transparent" />
-      <TitleText>חיסוNET!!!</TitleText>
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Center" component={CenterScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
-
-const TitleText = styled(Text)`
-  font-size: 25px;
-  color: red;
-  margin: auto;
-  margin-top: 50px;
-`;
 
 export default App;
