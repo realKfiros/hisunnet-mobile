@@ -4,8 +4,11 @@ import {Circle} from 'react-native-progress';
 import Axios from 'axios';
 import styled from 'styled-components';
 import * as uuid from 'react-native-uuid';
+import {MedicalCenterItem} from '../components/MedicalCenter.item';
+import {vw} from '../utils/css';
+import {ListFooter} from '../utils/list-footer';
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
   const [search, setSearch] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -45,14 +48,16 @@ const HomeScreen = () => {
       {loading ? (
         <Loading size={50} indeterminate={true} />
       ) : (
-        <FlatList
+        <MedicalCentersList
           data={searchResults}
           keyExtractor={(item) => item.ItemKey}
           renderItem={({item}) => (
-            <ServiceCenter style={{writingDirection: 'rtl'}}>
-              {item.SERVICE_NAME}
-            </ServiceCenter>
+            <MedicalCenterItem
+              item={item}
+              onPress={() => navigation.push('Center', {center: item})}
+            />
           )}
+          ListFooterComponent={<ListFooter height={15} />}
         />
       )}
     </>
@@ -92,11 +97,11 @@ const Loading = styled(Circle)`
   margin-top: 50px;
 `;
 
-const ServiceCenter = styled(Text)`
-  padding: 10px;
-  font-size: 18px;
-  height: 44px;
-  direction: rtl;
+const MedicalCentersList = styled(FlatList)`
+  padding: 20px;
+  padding-bottom: 0;
+  width: ${vw(100)}px;
+  margin-bottom: 20px;
 `;
 
 export {HomeScreen};
