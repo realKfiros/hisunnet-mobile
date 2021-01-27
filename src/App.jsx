@@ -1,10 +1,12 @@
 import React from 'react';
-import {StatusBar} from 'react-native';
+import {StatusBar, I18nManager} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import Axios from 'axios';
 import {HomeScreen} from './screens/home.screen';
-import {CenterScreen} from './screens/center.screen';
+import {OnboardingScreen} from './screens/onboarding.screen';
+
+I18nManager.forceRTL(true);
 
 const Stack = createStackNavigator();
 
@@ -21,18 +23,18 @@ const App = () => {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
+            name="Onboarding"
+            options={{
+              headerShown: false,
+            }}
+            component={OnboardingScreen}
+          />
+          <Stack.Screen
             name="Home"
             options={{
               title: 'חיפוש',
             }}
             component={HomeScreen}
-          />
-          <Stack.Screen
-            name="Center"
-            component={CenterScreen}
-            options={({route}) => ({
-              title: route.params.center.SERVICE_NAME,
-            })}
           />
         </Stack.Navigator>
       </NavigationContainer>
