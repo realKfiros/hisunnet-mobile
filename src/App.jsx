@@ -5,6 +5,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Axios from 'axios';
 import {HomeScreen} from './screens/home.screen';
 import {OnboardingScreen} from './screens/onboarding.screen';
+import {PhoneInputScreen} from './screens/phoneInput.screen';
 
 I18nManager.forceRTL(true);
 
@@ -28,6 +29,13 @@ const App = () => {
               headerShown: false,
             }}
             component={OnboardingScreen}
+          />
+          <Stack.Screen
+            name="PhoneInput"
+            options={{
+              headerShown: false,
+            }}
+            component={PhoneInputScreen}
           />
           <Stack.Screen
             name="Home"

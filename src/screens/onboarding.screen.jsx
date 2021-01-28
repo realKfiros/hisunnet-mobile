@@ -1,5 +1,11 @@
 import React, {useState, useRef} from 'react';
-import {SafeAreaView, Text, View, TouchableOpacity} from 'react-native';
+import {
+  SafeAreaView,
+  Text,
+  View,
+  TouchableOpacity,
+  Dimensions,
+} from 'react-native';
 import Wizard from 'react-native-wizard';
 import OnboardingAsset from '../../assets/svg/onboarding.asset';
 import MinusBorderRadius from '../../assets/svg/minus-border-radius';
@@ -38,7 +44,7 @@ const stepList = [
         <WizardStepTitle>שלום</WizardStepTitle>
         <WizardStepText>
           אנחנו פה להציג עבורך מתחמי חיסונים עם זמינות מנות שנשארו, ולאפשר זימון
-          תור לקבלת מנה ראשונה באותו היום. המידע יוצג באזורך או באזור לבחירתך
+          תור לקבלת מנה ראשונה באותו היום.
         </WizardStepText>
       </WizardStep>
     ),
@@ -66,7 +72,7 @@ const OnboardingScreen = ({navigation}) => {
       <OnboardingImage />
       <PageBottom>
         <LeftBorderRadius
-          color="#0d47a1"
+          color="#0D47A1"
           width={80}
           height={160}
           style={{
@@ -96,7 +102,7 @@ const OnboardingScreen = ({navigation}) => {
               if (currentStep === 0) {
                 wizard.current.next();
               } else {
-                navigation.push('Home');
+                navigation.push('PhoneInput');
               }
             }}>
             <ButtonText>המשך</ButtonText>
@@ -133,7 +139,7 @@ const PageBottom = styled(View)`
 
 const LeftBorderRadius = styled(MinusBorderRadius)`
   position: absolute;
-  left: 0;
+  right: 0;
   top: 0;
   height: 160px;
 `;
@@ -143,7 +149,7 @@ const WizardParent = styled(View)`
   height: 100%;
   margin-top: 80px;
   background-color: #0d47a1;
-  border-top-right-radius: 80px;
+  border-top-left-radius: 80px;
 `;
 
 const WizardButton = styled(TouchableOpacity)`
