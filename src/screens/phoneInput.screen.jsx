@@ -1,28 +1,19 @@
-import React, {useState} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import {View, Text, SafeAreaView} from 'react-native';
-import {TextInput} from 'react-native-paper';
-import CountryPicker from 'react-native-country-picker-modal';
+import {Button} from 'react-native-ui-lib';
+import PhoneInput from 'react-native-phone-number-input';
 import styled from 'styled-components';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 
-const PhoneInputScreen = () => {
-  const [countryPickerVisible, setCountryPickerVisible] = useState(false);
-  const [countryCode, setCountryCode] = useState('IL');
-  const [country, setCountry] = useState({
-    callingCode: ['972'],
-    cca2: 'IL',
-    currency: ['NIS'],
-    flag: 'flag-il',
-    name: 'Israel',
-    region: 'Asia',
-    subregion: 'Middle East',
-  });
+const PhoneInputScreen = ({navigation}) => {
+  const [phone, setPhone] = useState('');
+  const [fullPhone, setFullPhone] = useState('');
+  const [isPhoneValid, setIsPhoneValid] = useState(false);
+  const phoneInput = useRef(null);
 
-  const onCountrySelect = (country) => {
-    console.log(country);
-    setCountryCode(country.cca2);
-    setCountry(country);
-  };
+  useEffect(() => {
+    if (phoneInput && phoneInput.current)
+      setIsPhoneValid(phoneInput.current.isValidNumber(phone));
+  }, [phone]);
 
   return (
     <>
@@ -34,32 +25,28 @@ const PhoneInputScreen = () => {
           <MoreInfo>וגם כדי לשלוח לך את פרטי התור שיקבע</MoreInfo>
         </InstructionSection>
         <PhoneInputWrapper>
-          <PhoneInput
-            label="מספר טלפון"
-            mode="outlined"
-            keyboardType="phone-pad"
-            autoFocus={false}
-            style={{textAlign: 'left'}}
-          />
-          <CountryPicker
-            {...{
-              countryCode,
-              country,
-            }}
-            withFlag
-            withEmoji
-            withCallingCode
-            withCallingCodeButton
-            onSelect={onCountrySelect}
-            onClose={() => setCountryPickerVisible(false)}
-            visible={countryPickerVisible}
-            containerButtonStyle={{
-              marginTop: 'auto',
-              marginBottom: 'auto',
+          <Phone
+            placeholder="מספר טלפון"
+            defaultCode="IL"
+            layout="first"
+            withShadow
+            containerStyle={{
               direction: 'ltr',
+              borderColor: '#000',
             }}
+            ref={phoneInput}
+            value={phone}
+            onChangeText={(value) => setPhone(value)}
+            onChangeFormattedText={(value) => setFullPhone(value)}
           />
         </PhoneInputWrapper>
+        {isPhoneValid && (
+          <ConfirmButton
+            label="לקבלת קוד"
+            backgroundColor="#B02D89"
+            onPress={() => navigation.navigate('OTP', {phone, fullPhone})}
+          />
+        )}
       </View>
     </>
   );
@@ -104,11 +91,18 @@ const PhoneInputWrapper = styled(View)`
   flex-direction: row;
   padding: 15px;
   padding-top: 40px;
+  justify-content: center;
 `;
 
-const PhoneInput = styled(TextInput)`
+const Phone = styled(PhoneInput)`
   flex: 1;
   margin-right: 15px;
+`;
+
+const ConfirmButton = styled(Button)`
+  margin: 30px auto;
+  width: 180px;
+  box-shadow: 0 12px 16px rgba(176, 45, 137, 0.3);
 `;
 
 export {PhoneInputScreen};

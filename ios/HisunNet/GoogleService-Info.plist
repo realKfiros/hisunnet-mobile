@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1097509928616-au32um16jlp7h810jegr6lt3lir1qv7q.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1097509928616-au32um16jlp7h810jegr6lt3lir1qv7q</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDiZm3kvJJZS2aEbnrnUSO07IPdDK4t2Dk</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1097509928616</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.realkfiros.vaccinet</string>
+	<key>PROJECT_ID</key>
+	<string>vaccinet-9f0dc</string>
+	<key>STORAGE_BUCKET</key>
+	<string>vaccinet-9f0dc.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1097509928616:ios:f1a73360e54a4c68c04c9d</string>
+</dict>
+</plist>
