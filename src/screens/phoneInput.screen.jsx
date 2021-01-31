@@ -3,6 +3,13 @@ import {View, Text, SafeAreaView} from 'react-native';
 import {Button} from 'react-native-ui-lib';
 import PhoneInput from 'react-native-phone-number-input';
 import styled from 'styled-components';
+import {
+  Instruction,
+  InstructionSection,
+  InstructionTitle,
+  MoreInfo,
+} from '../ui/instruction';
+import {Screen} from '../ui/screen';
 
 const PhoneInputScreen = ({navigation}) => {
   const [phone, setPhone] = useState('');
@@ -16,11 +23,10 @@ const PhoneInputScreen = ({navigation}) => {
   }, [phone]);
 
   return (
-    <>
-      <SafeAreaView />
+    <Screen>
       <View style={{justifyContent: 'center'}}>
         <InstructionSection>
-          <Title>קוד אימות ונתחיל</Title>
+          <InstructionTitle>קוד אימות ונתחיל</InstructionTitle>
           <Instruction>יש להזין מספר טלפון לקבלת קוד אימות חד פעמי</Instruction>
           <MoreInfo>וגם כדי לשלוח לך את פרטי התור שיקבע</MoreInfo>
         </InstructionSection>
@@ -48,43 +54,9 @@ const PhoneInputScreen = ({navigation}) => {
           />
         )}
       </View>
-    </>
+    </Screen>
   );
 };
-
-const InstructionSection = styled(View)`
-  margin: 15px;
-  margin-top: 100px;
-  text-align: center;
-  justify-content: center;
-`;
-
-const Title = styled(Text)`
-  color: #141414;
-  font-size: 28px;
-  font-weight: 300;
-  letter-spacing: 0;
-  line-height: 41px;
-  text-align: center;
-  /* margin: 0 75px; */
-`;
-
-const Instruction = styled(Text)`
-  color: #141414;
-  font-size: 16px;
-  letter-spacing: 0;
-  line-height: 26px;
-  text-align: center;
-`;
-
-const MoreInfo = styled(Text)`
-  opacity: 0.6;
-  color: #141414;
-  font-size: 14px;
-  letter-spacing: 0;
-  line-height: 14px;
-  text-align: center;
-`;
 
 const PhoneInputWrapper = styled(View)`
   display: flex;

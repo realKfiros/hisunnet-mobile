@@ -1,17 +1,21 @@
 import React, {useState, useEffect} from 'react';
 import {useForm} from 'react-hook-form';
-import {SafeAreaView, View, Text} from 'react-native';
-import {Provider, TextInput} from 'react-native-paper';
+import {Screen} from '../ui/screen';
 import {Button} from 'react-native-ui-lib';
-import DropDown from 'react-native-paper-dropdown';
 import styled, {css} from 'styled-components';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+  Instruction,
+  InstructionDiv,
+  InstructionSection,
+  InstructionTitle,
+} from '../ui/instruction';
+import {Dropdown, Form, Input, Field} from '../ui/form';
 
 const list = [{label: 'מכבי', value: 'מכבי'}];
 
 const RegistrationScreen = ({navigation, route}) => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
-  const [center, setCenter] = useState();
 
   const {register, setValue, getValues, handleSubmit} = useForm();
 
@@ -38,17 +42,16 @@ const RegistrationScreen = ({navigation, route}) => {
   };
 
   return (
-    <>
-      <SafeAreaView />
+    <Screen>
       <InstructionSection>
-        <Title>רישום לאיתור חיסון</Title>
+        <InstructionTitle>רישום לאיתור חיסון</InstructionTitle>
         <InstructionDiv>
           <Instruction>
             אנו מחוייבים לשמירה על פרטיותך. פרטים אלו לא יועברו לאף גורם אחר{' '}
           </Instruction>
         </InstructionDiv>
       </InstructionSection>
-      <Provider>
+      <Form>
         <Input
           label="שם מלא"
           mode="outlined"
@@ -56,7 +59,7 @@ const RegistrationScreen = ({navigation, route}) => {
             setValue('name', value);
           }}
         />
-        <FieldWrap>
+        <Field>
           <Dropdown
             label="קופת חולים"
             mode="outlined"
@@ -69,65 +72,16 @@ const RegistrationScreen = ({navigation, route}) => {
             }}
             value={getValues('healthService')}
           />
-        </FieldWrap>
-      </Provider>
+        </Field>
+      </Form>
       <ConfirmButton
         label="המשך"
         backgroundColor="#B02D89"
         onPress={handleSubmit(onSubmit)}
       />
-    </>
+    </Screen>
   );
 };
-
-const InstructionSection = styled(View)`
-  margin: 15px;
-  margin-top: 100px;
-  text-align: center;
-  justify-content: center;
-`;
-
-const InstructionDiv = styled(View)`
-  margin: 15px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  text-align: center;
-  justify-content: center;
-`;
-
-const Title = styled(Text)`
-  color: #141414;
-  font-size: 28px;
-  font-weight: 300;
-  letter-spacing: 0;
-  line-height: 41px;
-  text-align: center;
-  /* margin: 0 75px; */
-`;
-
-const Instruction = styled(Text)`
-  color: #141414;
-  font-size: 16px;
-  letter-spacing: 0;
-  line-height: 26px;
-  text-align: center;
-`;
-
-const Field = css`
-  margin: 15px 30px;
-`;
-
-const Input = styled(TextInput)`
-  ${Field}
-`;
-
-const FieldWrap = styled(View)`
-  ${Field}
-`;
-
-const Dropdown = styled(DropDown)`
-  ${Field}
-`;
 
 const ConfirmButton = styled(Button)`
   margin: auto auto 40px auto;

@@ -25,7 +25,6 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    console.log(user);
     if (user) navigation.current?.navigate('Registration');
   }, [user]);
 
