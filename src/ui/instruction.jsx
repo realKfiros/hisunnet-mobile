@@ -1,5 +1,28 @@
+import React from 'react';
 import {View, Text} from 'react-native';
+import {Checkbox as CheckBox} from 'react-native-ui-lib';
 import styled from 'styled-components';
+
+const Checkbox = ({
+  instruction = '',
+  onChange = () => {},
+  onValueChange = () => {},
+  value = false,
+  testID = '',
+  disabled = false,
+}) => (
+  <InstructionFlex>
+    <CheckBox
+      onChange={onChange}
+      onValueChange={onValueChange}
+      value={value}
+      testID={testID}
+      disabled={disabled}
+      label="asd"
+    />
+    <Instruction>{instruction}</Instruction>
+  </InstructionFlex>
+);
 
 const InstructionSection = styled(View)`
   margin: 15px;
@@ -24,6 +47,11 @@ const InstructionTitle = styled(Text)`
   line-height: 41px;
   text-align: center;
   /* margin: 0 75px; */
+`;
+
+const InstructionFlex = styled(View)`
+  display: flex;
+  flex-direction: row;
 `;
 
 const Instruction = styled(Text)`
@@ -70,4 +98,5 @@ export {
   BoldInstruction,
   MiniTitle,
   MoreInfo,
+  Checkbox,
 };

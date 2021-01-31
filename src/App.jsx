@@ -10,6 +10,8 @@ import {PhoneInputScreen} from './screens/phoneInput.screen';
 import {OTPScreen} from './screens/otp.screen';
 import {RegistrationScreen} from './screens/registration.screen';
 import {NotifiactionSettings} from './screens/notification.settings';
+import {Settings} from './screens/general.settings';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Stack = createStackNavigator();
 
@@ -25,11 +27,22 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    if (user) navigation.current?.navigate('Registration');
+    navigate();
   }, [user]);
 
   const onAuthStateChanged = (user) => {
     setUser(user);
+  };
+
+  const navigate = async () => {
+    if (user) {
+      let name = await AsyncStorage.getItem('name');
+      if (typeof name === 'string') {
+        navigation.current?.navigate('Home');
+      } else {
+        navigation.current?.navigate('Registration');
+      }
+    }
   };
 
   return (
@@ -77,9 +90,16 @@ const App = () => {
             component={NotifiactionSettings}
           />
           <Stack.Screen
+            name="Settings"
+            options={{
+              headerShown: false,
+            }}
+            component={Settings}
+          />
+          <Stack.Screen
             name="Home"
             options={{
-              title: 'חיפוש',
+              headerTintColor: '#0D47A1',
             }}
             component={HomeScreen}
           />

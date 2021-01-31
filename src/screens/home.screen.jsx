@@ -7,6 +7,7 @@ import * as uuid from 'react-native-uuid';
 import {MedicalCenterItem} from '../components/MedicalCenter.item';
 import {vw} from '../utils/css';
 import {ListFooter} from '../utils/list-footer';
+import {Screen} from '../ui/screen';
 
 const HomeScreen = ({navigation}) => {
   const [search, setSearch] = useState('');
@@ -31,7 +32,7 @@ const HomeScreen = ({navigation}) => {
   };
 
   return (
-    <>
+    <Screen>
       <SearchBox>
         <SearchInput
           placeholder="חיפוש"
@@ -60,9 +61,11 @@ const HomeScreen = ({navigation}) => {
           ListFooterComponent={<ListFooter height={15} />}
         />
       )}
-    </>
+    </Screen>
   );
 };
+
+const TopSection = styled(View)``;
 
 const SearchBox = styled(View)`
   display: flex;

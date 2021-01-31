@@ -25,7 +25,7 @@ const RegistrationScreen = ({navigation, route}) => {
 
   const init = async () => {
     const name = await AsyncStorage.getItem('name');
-    if (name) {
+    if (typeof name === 'string') {
       navigation.navigate('Home');
     } else {
       register('name', {
@@ -38,6 +38,7 @@ const RegistrationScreen = ({navigation, route}) => {
   };
 
   const onSubmit = (data) => {
+    console.log(data);
     navigation.navigate('NotificationSettings', data);
   };
 
