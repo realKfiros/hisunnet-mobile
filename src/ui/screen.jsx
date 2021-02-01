@@ -1,9 +1,9 @@
 import React from 'react';
 import {SafeAreaView} from 'react-native';
 
-const Screen = ({children}) => (
+const Screen = ({children, light}) => (
   <>
-    <SafeAreaView />
+    <SafeAreaView style={{backgroundColor: light && '#0D47A1'}} />
     {children}
   </>
 );

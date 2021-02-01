@@ -1,110 +1,151 @@
-import React, {useState} from 'react';
-import {FlatList, Text, TouchableOpacity, View, TextInput} from 'react-native';
-import {Circle} from 'react-native-progress';
-import Axios from 'axios';
+import React, {useEffect, useState} from 'react';
+import {Text, TouchableOpacity, View, StatusBar} from 'react-native';
+import {Button} from 'react-native-ui-lib';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import auth from '@react-native-firebase/auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import styled from 'styled-components';
-import * as uuid from 'react-native-uuid';
-import {MedicalCenterItem} from '../components/MedicalCenter.item';
-import {vw} from '../utils/css';
-import {ListFooter} from '../utils/list-footer';
 import {Screen} from '../ui/screen';
+import MinusBorderRadius from '../../assets/svg/minus-border-radius';
+import LocationIcon from '../../assets/svg/location';
 
 const HomeScreen = ({navigation}) => {
-  const [search, setSearch] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [name, setName] = useState('');
 
-  const performSearch = async () => {
-    setLoading(true);
-    const request = await Axios.post('/SearchPage/GetSearchPageSearch/', {
-      ChapterId: '005',
-      InitiatorCode: '001',
-      IsMobileApplication: 0,
-      ModuleName: 'medicalcentressearchresults',
-      PageNumber: '1',
-      RequestId: uuid.v1(),
-      SearchText: search,
-      Source: 'SearchPage',
-      isKosher: 0,
-    });
-    setSearchResults(request.data.Items);
-    setLoading(false);
+  useEffect(() => {
+    init();
+  }, []);
+
+  const init = async () => {
+    let _name = await AsyncStorage.getItem('name');
+    setName(_name);
+  };
+
+  const logout = async () => {
+    await AsyncStorage.clear();
+    await auth().signOut();
   };
 
   return (
-    <Screen>
-      <SearchBox>
-        <SearchInput
-          placeholder="חיפוש"
-          style={{writingDirection: 'rtl'}}
-          value={search}
-          onChangeText={(text) => setSearch(text)}
+    <Screen light>
+      <StatusBar
+        translucent
+        backgroundColor="transparent"
+        barStyle="light-content"
+      />
+      <TopSection>
+        <TopSectionContent>
+          <Toolbar>
+            <SettingsButton
+              onPress={() => navigation.push('Settings', {firstTime: false})}>
+              <FontAwesome name="cog" />
+            </SettingsButton>
+          </Toolbar>
+          <WelcomeSection>
+            <Title>שלום {name.split(' ')[0]}</Title>
+          </WelcomeSection>
+        </TopSectionContent>
+        <LeftBorderRadius
+          color="#0D47A1"
+          width={80}
+          height={160}
+          style={{
+            transform: [{rotate: '180deg'}],
+          }}
         />
-        {search.length > 2 && (
-          <SearchButton onPress={performSearch}>
-            <Text style={{fontSize: 18}}>חיפוש</Text>
-          </SearchButton>
-        )}
-      </SearchBox>
-      {loading ? (
-        <Loading size={50} indeterminate={true} />
-      ) : (
-        <MedicalCentersList
-          data={searchResults}
-          keyExtractor={(item) => item.ItemKey}
-          renderItem={({item}) => (
-            <MedicalCenterItem
-              item={item}
-              onPress={() => navigation.push('Center', {center: item})}
-            />
-          )}
-          ListFooterComponent={<ListFooter height={15} />}
-        />
-      )}
+      </TopSection>
+      <Content>
+        <AvailabilityArea>
+          <AvailabilityMessage>
+            נמצאו מנות חיסון זמינות באזורך
+          </AvailabilityMessage>
+          <BrandButton
+            label="להצגת מתחמי החיסון"
+            iconOnLeft
+            iconSource={LocationIcon}
+            labelStyle={{
+              margin: 10,
+              fontSize: 20,
+            }}
+            style={{
+              paddingTop: 23,
+              paddingBottom: 23,
+              paddingStart: 34,
+              paddingEnd: 34,
+            }}
+          />
+        </AvailabilityArea>
+      </Content>
     </Screen>
   );
 };
 
-const TopSection = styled(View)``;
+const TopSection = styled(View)`
+  height: 235px;
+`;
 
-const SearchBox = styled(View)`
+const TopSectionContent = styled(View)`
+  height: 155px;
+  background-color: #0d47a1;
+  border-bottom-left-radius: 80px;
+`;
+
+const Toolbar = styled(View)`
+  height: 75px;
+`;
+
+const SettingsButton = styled(TouchableOpacity)`
+  position: absolute;
+  top: 20px;
+  left: 20px;
+`;
+
+const FontAwesome = styled(FontAwesomeIcon)`
+  color: #fff;
+  font-size: 27px;
+`;
+
+const Content = styled(View)`
   display: flex;
-  flex-direction: row-reverse;
-  height: 60px;
+  flex-direction: column;
 `;
 
-const SearchInput = styled(TextInput)`
-  height: 40px;
-  border-radius: 20px;
-  background-color: #d1d1d1;
-  margin: 5px;
-  font-size: 18px;
-  padding-right: 15px;
-  flex: 1;
+const LeftBorderRadius = styled(MinusBorderRadius)`
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  height: 160px;
 `;
 
-const SearchButton = styled(TouchableOpacity)`
-  height: 40px;
-  /* width: 100px; */
-  border-radius: 20px;
-  background-color: #d1d1d1;
-  margin: 5px;
-  font-size: 18px;
-  padding: 0 15px;
+const WelcomeSection = styled(View)`
+  height: 80px;
   justify-content: center;
-  align-items: center;
 `;
 
-const Loading = styled(Circle)`
-  margin: auto;
-  margin-top: 50px;
+const Title = styled(Text)`
+  color: #fff;
+  font-size: 28px;
+  text-align: center;
 `;
 
-const MedicalCentersList = styled(FlatList)`
-  padding: 20px;
-  padding-bottom: 0;
-  width: ${vw(100)}px;
-  margin-bottom: 20px;
+const AvailabilityArea = styled(View)`
+  margin: 24px auto;
+`;
+
+const BrandButton = styled(Button)`
+  margin: 24px auto;
+  box-shadow: 0 12px 16px rgba(176, 45, 137, 0.3);
+  background-color: #b02d89;
+`;
+
+const AvailabilityMessage = styled(Text)`
+  height: 70px;
+  width: 288px;
+  color: #141414;
+  font-size: 28px;
+  letter-spacing: 0;
+  line-height: 35px;
+  text-align: center;
 `;
 
 export {HomeScreen};

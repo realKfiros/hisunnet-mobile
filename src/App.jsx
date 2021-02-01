@@ -12,39 +12,13 @@ import {RegistrationScreen} from './screens/registration.screen';
 import {NotifiactionSettings} from './screens/notification.settings';
 import {Settings} from './screens/general.settings';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {SplashScreen} from './screens/splash.screen';
 
 const Stack = createStackNavigator();
 
 Axios.defaults.baseURL = 'https://serguide.maccabi4u.co.il/webapi/api';
 
 const App = () => {
-  const [user, setUser] = useState();
-  const navigation = useRef(null);
-
-  useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber;
-  }, []);
-
-  useEffect(() => {
-    navigate();
-  }, [user]);
-
-  const onAuthStateChanged = (user) => {
-    setUser(user);
-  };
-
-  const navigate = async () => {
-    if (user) {
-      let name = await AsyncStorage.getItem('name');
-      if (typeof name === 'string') {
-        navigation.current?.navigate('Home');
-      } else {
-        navigation.current?.navigate('Registration');
-      }
-    }
-  };
-
   return (
     <>
       <StatusBar
@@ -52,8 +26,15 @@ const App = () => {
         backgroundColor="transparent"
         barStyle="dark-content"
       />
-      <NavigationContainer ref={navigation}>
-        <Stack.Navigator>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Splash">
+          <Stack.Screen
+            name="Splash"
+            options={{
+              headerShown: false,
+            }}
+            component={SplashScreen}
+          />
           <Stack.Screen
             name="Onboarding"
             options={{
@@ -99,7 +80,7 @@ const App = () => {
           <Stack.Screen
             name="Home"
             options={{
-              headerTintColor: '#0D47A1',
+              headerShown: false,
             }}
             component={HomeScreen}
           />
