@@ -10,6 +10,7 @@ target 'HisunNet' do
 
   $FirebaseSDKVersion = '7.1.0'
   pod 'Firebase/Core'
+  pod 'Firebase/Messaging'
 
   target 'HisunNetTests' do
     inherit! :complete

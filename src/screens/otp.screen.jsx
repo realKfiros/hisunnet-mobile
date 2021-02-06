@@ -39,7 +39,7 @@ const OTPScreen = ({navigation, route}) => {
   const verify = async () => {
     try {
       await SMSVerification.confirm(code);
-      navigation.navigate('Home');
+      navigation.navigate('Registration');
     } catch (err) {
       Alert.alert('Verification', 'Invalid code');
     }

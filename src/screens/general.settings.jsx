@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import {TouchableOpacity} from 'react-native';
 import {useForm} from 'react-hook-form';
 import {Screen} from '../ui/screen';
 import {
@@ -11,12 +12,12 @@ import {Dropdown, Field, Form, Input} from '../ui/form';
 import {Checkbox, Button} from 'react-native-ui-lib';
 import styled from 'styled-components';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
 const list = [{label: 'מכבי', value: 'מכבי'}];
 
 const Settings = ({navigation, route}) => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
-  const [close, setClose] = useState(false);
   const [reload, setReload] = useState(false);
 
   const {register, setValue, getValues, handleSubmit} = useForm();
@@ -24,10 +25,6 @@ const Settings = ({navigation, route}) => {
   useEffect(() => {
     init();
   }, []);
-
-  useEffect(() => {
-    setReload(true);
-  }, [getValues('name', 'healthService')]);
 
   const init = async () => {
     register('name', {
@@ -39,18 +36,13 @@ const Settings = ({navigation, route}) => {
     register('notifyClose', {
       required: true,
     });
-    if (route.params.firstTime) {
-      setValue('name', route.params.name);
-      setValue('healthService', route.params.healthService);
-      setValue('notifyClose', route.params.notifyClose);
-    } else {
-      let name = await AsyncStorage.getItem('name');
-      setValue('name', name);
-      let healthService = await AsyncStorage.getItem('healthService');
-      setValue('healthService', healthService);
-      let notifyClose = await AsyncStorage.getItem('notifyClose');
-      setValue('notifyClose', JSON.parse(notifyClose));
-    }
+    let name = await AsyncStorage.getItem('name');
+    setValue('name', name);
+    let healthService = await AsyncStorage.getItem('healthService');
+    setValue('healthService', healthService);
+    let notifyClose = await AsyncStorage.getItem('notifyClose');
+    setValue('notifyClose', JSON.parse(notifyClose));
+    setReload(true);
   };
 
   const onSubmit = async (data) => {
@@ -62,6 +54,9 @@ const Settings = ({navigation, route}) => {
 
   return reload ? (
     <Screen>
+      <BackButton onPress={navigation.goBack}>
+        <FontAwesome name="arrow-left" />
+      </BackButton>
       <Form>
         <InstructionDiv>
           <InstructionTitle>רישום לאיתור חיסון</InstructionTitle>
@@ -115,6 +110,16 @@ const Settings = ({navigation, route}) => {
     </Screen>
   ) : null;
 };
+
+const BackButton = styled(TouchableOpacity)`
+  position: absolute;
+  top: 75px;
+  right: 40px;
+`;
+
+const FontAwesome = styled(FontAwesomeIcon)`
+  font-size: 27px;
+`;
 
 const ConfirmButton = styled(Button)`
   margin: auto auto 40px auto;

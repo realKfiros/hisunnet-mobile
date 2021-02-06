@@ -9,9 +9,18 @@ import {
 } from '../ui/instruction';
 import {Checkbox, Button} from 'react-native-ui-lib';
 import styled from 'styled-components';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const NotifiactionSettings = ({navigation, route}) => {
   const [close, setClose] = useState(false);
+
+  const submit = async () => {
+    await AsyncStorage.setItem('notifyClose', JSON.stringify(close));
+    await AsyncStorage.setItem('name', route.params.name);
+    await AsyncStorage.setItem('healthService', route.params.healthService);
+    navigation.navigate('Home');
+  };
+
   return (
     <Screen>
       <InstructionSection>
@@ -31,13 +40,7 @@ const NotifiactionSettings = ({navigation, route}) => {
       <ConfirmButton
         label="איתור חיסון"
         backgroundColor="#B02D89"
-        onPress={() =>
-          navigation.navigate('Settings', {
-            ...route.params,
-            notifyClose: close,
-            firstTime: true,
-          })
-        }
+        onPress={submit}
       />
     </Screen>
   );

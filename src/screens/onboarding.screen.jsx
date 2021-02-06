@@ -1,21 +1,17 @@
 import React, {useState, useRef} from 'react';
-import {
-  SafeAreaView,
-  Text,
-  View,
-  TouchableOpacity,
-  Dimensions,
-} from 'react-native';
+import {SafeAreaView, Text, View, TouchableOpacity} from 'react-native';
 import Wizard from 'react-native-wizard';
-import OnboardingAsset from '../../assets/svg/onboarding.asset';
+import styled, {css} from 'styled-components';
+import OnboardingAsset1 from '../../assets/svg/onboarding1.asset';
+import OnboardingAsset2 from '../../assets/svg/onboarding2.asset';
 import MinusBorderRadius from '../../assets/svg/minus-border-radius';
-import styled from 'styled-components';
+import {vh} from '../utils/css';
 
 const WizardStep = styled(View)`
   justify-content: center;
   text-align: center;
   padding: 15px;
-  margin: 15px 60px;
+  margin: 15px 30px;
 `;
 
 const WizardStepTitle = styled(Text)`
@@ -62,14 +58,41 @@ const stepList = [
   },
 ];
 
+const OnboardingImage = css`
+  margin: 80px auto;
+`;
+
+const OnboardingImage1 = styled(OnboardingAsset1)`
+  ${OnboardingImage}
+`;
+
+const OnboardingImage2 = styled(OnboardingAsset2)`
+  ${OnboardingImage}
+`;
+
+const SvgWizardStepsList = [
+  {
+    content: <OnboardingImage1 />,
+  },
+  {
+    content: <OnboardingImage2 />,
+  },
+];
+
 const OnboardingScreen = ({navigation}) => {
+  const svgWizard = useRef(null);
   const wizard = useRef(null);
   const [currentStep, setCurrentStep] = useState(0);
 
   return (
     <>
       <SafeAreaView />
-      <OnboardingImage />
+      <Wizard
+        ref={svgWizard}
+        steps={SvgWizardStepsList}
+        activeStep={currentStep}
+      />
+      {/* {currentStep === 0 ? <OnboardingImage1 /> : <OnboardingImage2 />} */}
       <PageBottom>
         <LeftBorderRadius
           color="#0D47A1"
@@ -101,6 +124,7 @@ const OnboardingScreen = ({navigation}) => {
             onPress={() => {
               if (currentStep === 0) {
                 wizard.current.next();
+                svgWizard.current.next();
               } else {
                 navigation.push('PhoneInput');
               }
@@ -113,13 +137,9 @@ const OnboardingScreen = ({navigation}) => {
   );
 };
 
-const OnboardingImage = styled(OnboardingAsset)`
-  margin: 80px auto;
-`;
-
 const StepIndicatorParent = styled(View)`
   margin: 18px;
-  flex-direction: row;
+  flex-direction: row-reverse;
   justify-content: center;
 `;
 
@@ -135,6 +155,7 @@ const StepIndicator = styled(View)`
 const PageBottom = styled(View)`
   display: flex;
   flex-direction: row;
+  height: ${vh(50) + 80}px;
 `;
 
 const LeftBorderRadius = styled(MinusBorderRadius)`

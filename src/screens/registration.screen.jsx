@@ -24,17 +24,12 @@ const RegistrationScreen = ({navigation, route}) => {
   }, []);
 
   const init = async () => {
-    const name = await AsyncStorage.getItem('name');
-    if (typeof name === 'string') {
-      navigation.navigate('Home');
-    } else {
-      register('name', {
-        required: true,
-      });
-      register('healthService', {
-        required: true,
-      });
-    }
+    register('name', {
+      required: true,
+    });
+    register('healthService', {
+      required: true,
+    });
   };
 
   const onSubmit = (data) => {

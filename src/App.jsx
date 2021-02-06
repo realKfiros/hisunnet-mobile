@@ -1,9 +1,9 @@
 import React, {useEffect, useState, useRef} from 'react';
-import {StatusBar} from 'react-native';
+import {Alert, I18nManager, StatusBar} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import Axios from 'axios';
-import auth from '@react-native-firebase/auth';
+import messaging from '@react-native-firebase/messaging';
 import {HomeScreen} from './screens/home.screen';
 import {OnboardingScreen} from './screens/onboarding.screen';
 import {PhoneInputScreen} from './screens/phoneInput.screen';
@@ -11,14 +11,35 @@ import {OTPScreen} from './screens/otp.screen';
 import {RegistrationScreen} from './screens/registration.screen';
 import {NotifiactionSettings} from './screens/notification.settings';
 import {Settings} from './screens/general.settings';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {SplashScreen} from './screens/splash.screen';
+
+I18nManager.forceRTL(true);
 
 const Stack = createStackNavigator();
 
 Axios.defaults.baseURL = 'https://serguide.maccabi4u.co.il/webapi/api';
 
 const App = () => {
+  useEffect(() => {
+    // requestUserPermissionForNotifications();
+    const unsubscribe = messaging().onMessage(async (remoteMessage) => {
+      Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+    });
+    return unsubscribe;
+  }, []);
+
+  const requestUserPermissionForNotifications = async () => {
+    const authStatus = await messaging().requestPermission();
+    const enabled =
+      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+    if (enabled) {
+      let token = await messaging().getToken();
+      console.log(token);
+      console.log('Authorization status:', authStatus);
+    }
+  };
+
   return (
     <>
       <StatusBar

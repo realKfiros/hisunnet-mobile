@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1097509928616",
+    "project_id": "vaccinet-9f0dc",
+    "storage_bucket": "vaccinet-9f0dc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1097509928616:android:acec9e688271c2d9c04c9d",
+        "android_client_info": {
+          "package_name": "com.realkfiros.vaccinet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1097509928616-vo5me3kk0ia3f381svsqcgq8lksu5k1o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDq0Wxf_R8IS37Eibq3KT1_yvD-vd3mEeA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1097509928616-vo5me3kk0ia3f381svsqcgq8lksu5k1o.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1097509928616-au32um16jlp7h810jegr6lt3lir1qv7q.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.realkfiros.vaccinet"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

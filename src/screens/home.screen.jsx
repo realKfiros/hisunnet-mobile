@@ -4,10 +4,12 @@ import {Button} from 'react-native-ui-lib';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import auth from '@react-native-firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {SvgUri} from 'react-native-svg';
 import styled from 'styled-components';
 import {Screen} from '../ui/screen';
 import MinusBorderRadius from '../../assets/svg/minus-border-radius';
 import LocationIcon from '../../assets/svg/location';
+import {vw} from '../utils/css';
 
 const HomeScreen = ({navigation}) => {
   const [name, setName] = useState('');
@@ -36,10 +38,14 @@ const HomeScreen = ({navigation}) => {
       <TopSection>
         <TopSectionContent>
           <Toolbar>
-            <SettingsButton
-              onPress={() => navigation.push('Settings', {firstTime: false})}>
+            <SettingsButton onPress={() => navigation.push('Settings')}>
               <FontAwesome name="cog" />
             </SettingsButton>
+            <SVG
+              height="144"
+              uri="https://projects.invisionapp.com/assets/21004701/968353254/FCDE12868D1A689F3BBA19573FD8A5470B2F4DD0CAAD267D8714A6862E6C0270/download?cacheVersion=6"
+              fill="#fff"
+            />
           </Toolbar>
           <WelcomeSection>
             <Title>שלום {name.split(' ')[0]}</Title>
@@ -67,15 +73,18 @@ const HomeScreen = ({navigation}) => {
               margin: 10,
               fontSize: 20,
             }}
-            style={{
-              paddingTop: 23,
-              paddingBottom: 23,
-              paddingStart: 34,
-              paddingEnd: 34,
-            }}
+            onPress={logout}
           />
         </AvailabilityArea>
+        <BreakLine />
+        <SearchArea>
+          <SearchText>רוצה לבדוק זמינות חיסונים באזור אחר?</SearchText>
+        </SearchArea>
       </Content>
+      <BottomText>
+        ישנם חיסונים שניתנים בשתי מנות. עבור חיסונים אלו התור שיקבע יהיה למנה
+        הראשונה בלבד. את התור השני ייקבע לאותו מתחם בו ניתנה המנה הראשונה.
+      </BottomText>
     </Screen>
   );
 };
@@ -129,10 +138,12 @@ const Title = styled(Text)`
 `;
 
 const AvailabilityArea = styled(View)`
-  margin: 24px auto;
+  margin: 0 auto 40px auto;
 `;
 
 const BrandButton = styled(Button)`
+  height: 60px;
+  width: 240px;
   margin: 24px auto;
   box-shadow: 0 12px 16px rgba(176, 45, 137, 0.3);
   background-color: #b02d89;
@@ -146,6 +157,40 @@ const AvailabilityMessage = styled(Text)`
   letter-spacing: 0;
   line-height: 35px;
   text-align: center;
+`;
+
+const BottomText = styled(Text)`
+  position: absolute;
+  bottom: 40px;
+  left: 15px;
+  right: 15px;
+  text-align: center;
+`;
+
+const SVG = styled(SvgUri)`
+  margin: auto;
+`;
+
+const BreakLine = styled(View)`
+  margin: 10px auto;
+  width: ${vw(100) - 40}px;
+  height: 1px;
+  background-color: #d4d4d4;
+`;
+
+const SearchArea = styled(View)`
+  margin: 0 auto 40px auto;
+`;
+
+const SearchText = styled(Text)`
+  height: 27px;
+  width: 302px;
+  color: #141414;
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 27px;
+  text-align: right;
 `;
 
 export {HomeScreen};
