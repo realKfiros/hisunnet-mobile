@@ -13,9 +13,9 @@ const MedicalCenterItem = ({item, onPress}) => {
           <Icon name="map-marker" size={35} color="rgba(255, 255, 255, 0.7)" />
         </CenterIcon>
         <CenterName>
-          <Text>{item.SERVICE_NAME}</Text>
+          <Text>{item.name}</Text>
           <Text small>
-            {item.PARTIALLY_ADRESS}, {item.CITY_NAME}
+            {item.address}, {item.city}
           </Text>
         </CenterName>
       </Card>

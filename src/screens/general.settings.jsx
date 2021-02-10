@@ -54,11 +54,11 @@ const Settings = ({navigation, route}) => {
 
   return reload ? (
     <Screen>
-      <BackButton onPress={navigation.goBack}>
-        <FontAwesome name="arrow-left" />
-      </BackButton>
       <Form>
         <InstructionDiv>
+          <BackButton onPress={() => navigation.goBack()}>
+            <FontAwesome name="arrow-left" />
+          </BackButton>
           <InstructionTitle>רישום לאיתור חיסון</InstructionTitle>
           <InstructionDiv>
             <Instruction>
@@ -113,8 +113,10 @@ const Settings = ({navigation, route}) => {
 
 const BackButton = styled(TouchableOpacity)`
   position: absolute;
-  top: 75px;
-  right: 40px;
+  top: 5px;
+  right: 20px;
+  height: 30px;
+  width: 30px;
 `;
 
 const FontAwesome = styled(FontAwesomeIcon)`

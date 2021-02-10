@@ -29,37 +29,7 @@ const HomeScreen = ({navigation}) => {
   };
 
   return (
-    <Screen light>
-      <StatusBar
-        translucent
-        backgroundColor="transparent"
-        barStyle="light-content"
-      />
-      <TopSection>
-        <TopSectionContent>
-          <Toolbar>
-            <SettingsButton onPress={() => navigation.push('Settings')}>
-              <FontAwesome name="cog" />
-            </SettingsButton>
-            <SVG
-              height="144"
-              uri="https://projects.invisionapp.com/assets/21004701/968353254/FCDE12868D1A689F3BBA19573FD8A5470B2F4DD0CAAD267D8714A6862E6C0270/download?cacheVersion=6"
-              fill="#fff"
-            />
-          </Toolbar>
-          <WelcomeSection>
-            <Title>שלום {name.split(' ')[0]}</Title>
-          </WelcomeSection>
-        </TopSectionContent>
-        <LeftBorderRadius
-          color="#0D47A1"
-          width={80}
-          height={160}
-          style={{
-            transform: [{rotate: '180deg'}],
-          }}
-        />
-      </TopSection>
+    <>
       <Content>
         <AvailabilityArea>
           <AvailabilityMessage>
@@ -73,7 +43,7 @@ const HomeScreen = ({navigation}) => {
               margin: 10,
               fontSize: 20,
             }}
-            onPress={logout}
+            onPress={() => navigation.push('Centers')}
           />
         </AvailabilityArea>
         <BreakLine />
@@ -85,7 +55,7 @@ const HomeScreen = ({navigation}) => {
         ישנם חיסונים שניתנים בשתי מנות. עבור חיסונים אלו התור שיקבע יהיה למנה
         הראשונה בלבד. את התור השני ייקבע לאותו מתחם בו ניתנה המנה הראשונה.
       </BottomText>
-    </Screen>
+    </>
   );
 };
 

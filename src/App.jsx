@@ -12,6 +12,7 @@ import {RegistrationScreen} from './screens/registration.screen';
 import {NotifiactionSettings} from './screens/notification.settings';
 import {Settings} from './screens/general.settings';
 import {SplashScreen} from './screens/splash.screen';
+import {HomeNavigator} from './navigator/home.navigator';
 
 I18nManager.forceRTL(true);
 
@@ -103,7 +104,7 @@ const App = () => {
             options={{
               headerShown: false,
             }}
-            component={HomeScreen}
+            component={HomeNavigator}
           />
         </Stack.Navigator>
       </NavigationContainer>
