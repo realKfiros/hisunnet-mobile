@@ -42,6 +42,7 @@ const HomeNavigator = ({navigation}) => {
       <Stack.Navigator
         initialRouteName="Home"
         screenOptions={({navigation, route}) => ({
+          headerTransparent: true,
           header: () => (
             <TopSection>
               <TopSectionContent>
@@ -84,6 +85,7 @@ const HomeNavigator = ({navigation}) => {
 
 const TopSection = styled(View)`
   height: 235px;
+  background-color: transparent;
 `;
 
 const TopSectionContent = styled(View)`

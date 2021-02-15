@@ -1,0 +1,23 @@
+[
+    {
+      "name": "היכל מנורה מבטחים",
+      "address": "איזיק רמבה 7",
+      "city": "תל אביב",
+      "distance": "4 ק״מ",
+      "availability": "17:00"
+    },
+    {
+      "name": "האנגר 11",
+      "address": "בלפור 3",
+      "city": "תל אביב",
+      "distance": "10 ק״מ",
+      "availability": "17:00"
+    },
+    {
+      "name": "כיכר רבין",
+      "address": "אבן גבירול 124",
+      "city": "תל אביב",
+      "distance": "10 ק״מ",
+      "availability": "23:00"
+    }
+  ]

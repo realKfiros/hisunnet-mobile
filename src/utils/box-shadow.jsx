@@ -2,7 +2,7 @@ import {View, Platform} from 'react-native';
 import styled from 'styled-components';
 
 const BoxShadow = styled(View)`
-  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 `;
 
 BoxShadow.defaultProps = {

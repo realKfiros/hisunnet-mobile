@@ -87,6 +87,7 @@ const FontAwesome = styled(FontAwesomeIcon)`
 const Content = styled(View)`
   display: flex;
   flex-direction: column;
+  margin-top: 235px;
 `;
 
 const LeftBorderRadius = styled(MinusBorderRadius)`

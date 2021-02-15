@@ -1,32 +1,36 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {FlatList, Text} from 'react-native';
+import styled from 'styled-components';
 import {MedicalCenterItem} from '../components/MedicalCenter.item';
+import mock from '../mocks/centers.json';
 
 const CentersList = () => {
-  const [centers] = useState([
-    {
-      name: 'היכל מנורה מבטחים',
-      address: 'איזיק רמבה 7',
-      city: 'תל אביב',
-    },
-    {
-      name: 'האנגר 11',
-      address: 'בלפור 3',
-      city: 'תל אביב',
-    },
-    {
-      name: 'כיכר רבין',
-      address: 'אבן גבירוך 124',
-      city: 'תל אביב',
-    },
-  ]);
+  const [centers, setCenters] = useState([]);
+
+  useEffect(() => {
+    setCenters(mock);
+  }, []);
+
   return (
     <FlatList
       data={centers}
+      ListHeaderComponent={<Title>מתחמי החיסון באזור תל אביב</Title>}
       renderItem={({item}) => <MedicalCenterItem item={item} />}
       keyExtractor={(item, index) => index}
+      style={{paddingTop: 160}}
+      scrollEventThrottle={5}
     />
   );
 };
+
+const Title = styled(Text)`
+  margin: 15px;
+  color: #141414;
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 27px;
+  text-align: left;
+`;
 
 export {CentersList};
